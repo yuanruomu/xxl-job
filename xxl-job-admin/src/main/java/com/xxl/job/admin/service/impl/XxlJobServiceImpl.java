@@ -40,14 +40,14 @@ public class XxlJobServiceImpl implements XxlJobService {
 	public XxlJobLogDao xxlJobLogDao;
 	@Resource
 	private XxlJobLogGlueDao xxlJobLogGlueDao;
-	
+
 	@Override
-	public Map<String, Object> pageList(int start, int length, int jobGroup, int triggerStatus, String jobDesc, String executorHandler, String author) {
+	public Map<String, Object> pageList(int start, int length, int jobGroup, int triggerStatus, String jobDesc, String jobName, String executorHandler, String author) {
 
 		// page list
-		List<XxlJobInfo> list = xxlJobInfoDao.pageList(start, length, jobGroup, triggerStatus, jobDesc, executorHandler, author);
-		int list_count = xxlJobInfoDao.pageListCount(start, length, jobGroup, triggerStatus, jobDesc, executorHandler, author);
-		
+		List<XxlJobInfo> list = xxlJobInfoDao.pageList(start, length, jobGroup, triggerStatus, jobDesc, jobName, executorHandler, author);
+		int list_count = xxlJobInfoDao.pageListCount(start, length, jobGroup, triggerStatus, jobDesc, jobName, executorHandler, author);
+
 		// package result
 		Map<String, Object> maps = new HashMap<String, Object>();
 	    maps.put("recordsTotal", list_count);		// 总记录数
@@ -201,6 +201,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 			}
 		}
 
+		exists_jobInfo.setJobName(jobInfo.getJobName());
 		exists_jobInfo.setJobGroup(jobInfo.getJobGroup());
 		exists_jobInfo.setJobCron(jobInfo.getJobCron());
 		exists_jobInfo.setJobDesc(jobInfo.getJobDesc());
@@ -357,4 +358,33 @@ public class XxlJobServiceImpl implements XxlJobService {
 		return new ReturnT<Map<String, Object>>(result);
 	}
 
+	@Override
+	public ReturnT<String> stopByName(String jobName) {
+		XxlJobInfo xxlJobInfo = xxlJobInfoDao.selectByName(jobName);
+
+		xxlJobInfo.setTriggerStatus(0);
+		xxlJobInfo.setTriggerLastTime(0);
+		xxlJobInfo.setTriggerNextTime(0);
+
+		xxlJobInfoDao.update(xxlJobInfo);
+		return ReturnT.SUCCESS;
+	}
+
+	@Override
+	public ReturnT<XxlJobInfo> selectByName(String jobName) {
+		XxlJobInfo xxlJobInfo = xxlJobInfoDao.selectByName(jobName);
+		return new ReturnT<>(xxlJobInfo);
+	}
+
+	@Override
+	public ReturnT<String> removeByName(String jobName) {
+		XxlJobInfo xxlJobInfo = xxlJobInfoDao.selectByName(jobName);
+		if (xxlJobInfo == null) {
+			return ReturnT.SUCCESS;
+		}
+		xxlJobInfoDao.delete(xxlJobInfo.getId());
+		xxlJobLogDao.delete(xxlJobInfo.getId());
+		xxlJobLogGlueDao.deleteByJobId(xxlJobInfo.getId());
+		return ReturnT.SUCCESS;
+	}
 }

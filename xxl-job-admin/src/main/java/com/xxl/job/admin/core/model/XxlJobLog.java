@@ -13,7 +13,8 @@ public class XxlJobLog {
 	// job info
 	private int jobGroup;
 	private int jobId;
-
+	// 查询用(Log表并无该字段)
+	private String jobName;
 	// execute info
 	private String executorAddress;
 	private String executorHandler;
@@ -56,6 +57,14 @@ public class XxlJobLog {
 
 	public void setJobId(int jobId) {
 		this.jobId = jobId;
+	}
+
+	public String getJobName() {
+		return jobName;
+	}
+
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
 	}
 
 	public String getExecutorAddress() {

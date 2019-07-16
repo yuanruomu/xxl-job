@@ -19,6 +19,7 @@ public interface XxlJobInfoDao {
 									 @Param("jobGroup") int jobGroup,
 									 @Param("triggerStatus") int triggerStatus,
 									 @Param("jobDesc") String jobDesc,
+									 @Param("jobName") String jobName,
 									 @Param("executorHandler") String executorHandler,
 									 @Param("author") String author);
 	public int pageListCount(@Param("offset") int offset,
@@ -26,12 +27,15 @@ public interface XxlJobInfoDao {
 							 @Param("jobGroup") int jobGroup,
 							 @Param("triggerStatus") int triggerStatus,
 							 @Param("jobDesc") String jobDesc,
+							 @Param("jobName") String jobName,
 							 @Param("executorHandler") String executorHandler,
 							 @Param("author") String author);
 	
 	public int save(XxlJobInfo info);
 
 	public XxlJobInfo loadById(@Param("id") int id);
+
+	public XxlJobInfo selectByName(@Param("jobName") String jobName);
 	
 	public int update(XxlJobInfo xxlJobInfo);
 	

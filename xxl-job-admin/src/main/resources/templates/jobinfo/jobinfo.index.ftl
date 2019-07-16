@@ -35,8 +35,14 @@
 	                  	</select>
 	              	</div>
 	            </div>
-                <div class="col-xs-1">
+                <div class="col-xs-2">
                     <div class="input-group">
+                        <input type="text" class="form-control" id="jobName" autocomplete="on" placeholder="${I18n.system_please_input}${I18n.jobinfo_field_jobname}" >
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="input-group">
+                        <span class="input-group-addon">状态</span>
                         <select class="form-control" id="triggerStatus" >
                             <option value="-1" >${I18n.system_all}</option>
                             <option value="0" >${I18n.jobinfo_opt_stop}</option>
@@ -44,6 +50,8 @@
                         </select>
                     </div>
                 </div>
+          	</div>
+            <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
                 <div class="col-xs-2">
                     <div class="input-group">
                         <input type="text" class="form-control" id="jobDesc" autocomplete="on" placeholder="${I18n.system_please_input}${I18n.jobinfo_field_jobdesc}" >
@@ -59,14 +67,13 @@
                         <input type="text" class="form-control" id="author" autocomplete="on" placeholder="${I18n.system_please_input}${I18n.jobinfo_field_author}" >
                     </div>
                 </div>
-	            <div class="col-xs-1">
-	            	<button class="btn btn-block btn-info" id="searchBtn">${I18n.system_search}</button>
-	            </div>
-	            <div class="col-xs-1">
-	            	<button class="btn btn-block btn-success add" type="button">${I18n.jobinfo_field_add}</button>
-	            </div>
-          	</div>
-	    	
+                <div class="col-xs-1">
+                    <button class="btn btn-block btn-info" id="searchBtn">${I18n.system_search}</button>
+                </div>
+                <div class="col-xs-1">
+                    <button class="btn btn-block btn-success add" type="button">${I18n.jobinfo_field_add}</button>
+                </div>
+            </div>
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box">
@@ -78,6 +85,7 @@
 				                <thead>
 					            	<tr>
 					            		<th name="id" >${I18n.jobinfo_field_id}</th>
+                                        <th name="jobName" >${I18n.jobinfo_field_jobname}</th>
 					                	<th name="jobGroup" >${I18n.jobinfo_field_jobgroup}</th>
 					                  	<th name="jobDesc" >${I18n.jobinfo_field_jobdesc}</th>
                                         <th name="glueType" >${I18n.jobinfo_field_gluetype}</th>
@@ -114,18 +122,24 @@
          	</div>
          	<div class="modal-body">
 				<form class="form-horizontal form" role="form" >
-					<div class="form-group">
-						<label for="firstname" class="col-sm-2 control-label">${I18n.jobinfo_field_jobgroup}<font color="red">*</font></label>
-						<div class="col-sm-4">
-							<select class="form-control" name="jobGroup" >
-		            			<#list JobGroupList as group>
-		            				<option value="${group.id}" <#if jobGroup==group.id>selected</#if> >${group.title}</option>
-		            			</#list>
-		                  	</select>
-						</div>
+                    <div class="form-group">
+                        <label for="firstname" class="col-sm-2 control-label">${I18n.jobinfo_field_jobgroup}<font color="red">*</font></label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="jobGroup" >
+                                <#list JobGroupList as group>
+                                    <option value="${group.id}" <#if jobGroup==group.id>selected</#if> >${group.title}</option>
+                                </#list>
+                            </select>
+                        </div>
+                        <label for="firstname" class="col-sm-2 control-label">${I18n.jobinfo_field_jobname}<font color="red">*</font></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="jobName" placeholder="${I18n.system_please_input}${I18n.jobinfo_field_jobname}" maxlength="50" >
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="lastname" class="col-sm-2 control-label">${I18n.jobinfo_field_jobdesc}<font color="red">*</font></label>
-                        <div class="col-sm-4"><input type="text" class="form-control" name="jobDesc" placeholder="${I18n.system_please_input}${I18n.jobinfo_field_jobdesc}" maxlength="50" ></div>
-					</div>
+                        <div class="col-sm-10"><input type="text" class="form-control" name="jobDesc" placeholder="${I18n.system_please_input}${I18n.jobinfo_field_jobdesc}" maxlength="50" ></div>
+                    </div>
                     <div class="form-group">
                         <label for="firstname" class="col-sm-2 control-label">${I18n.jobinfo_field_executorRouteStrategy}<font color="red">*</font></label>
                         <div class="col-sm-4">

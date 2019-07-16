@@ -13,6 +13,7 @@ $(function() {
 	        	obj.jobGroup = $('#jobGroup').val();
                 obj.triggerStatus = $('#triggerStatus').val();
                 obj.jobDesc = $('#jobDesc').val();
+				obj.jobName = $('#jobName').val();
 	        	obj.executorHandler = $('#executorHandler').val();
                 obj.author = $('#author').val();
 	        	obj.start = d.start;
@@ -28,7 +29,12 @@ $(function() {
 	                	"data": 'id',
 						"bSortable": false,
 						"visible" : true,
-						"width":'10%'
+						"width":'5%'
+					},
+					{
+						"data": 'jobName',
+						"visible" : true,
+						"width":'15%'
 					},
 	                { 
 	                	"data": 'jobGroup', 
@@ -46,11 +52,11 @@ $(function() {
 	                {
 	                	"data": 'jobDesc',
 						"visible" : true,
-						"width":'25%'
+						"width":'20%'
 					},
 					{
 						"data": 'glueType',
-						"width":'25%',
+						"width":'18%',
 						"visible" : true,
 						"render": function ( data, type, row ) {
 							var glueTypeTitle = findGlueTypeTitle(row.glueType);
@@ -65,7 +71,7 @@ $(function() {
 					{
 						"data": 'jobCron',
 						"visible" : true,
-						"width":'10%'
+						"width":'12%'
 					},
 	                { 
 	                	"data": 'addTime', 
@@ -81,7 +87,7 @@ $(function() {
 	                		return data?moment(new Date(data)).format("YYYY-MM-DD HH:mm:ss"):"";
 	                	}
 	                },
-	                { "data": 'author', "visible" : true, "width":'10%'},
+	                { "data": 'author', "visible" : true, "width":'6%'},
 	                { "data": 'alarmEmail', "visible" : false},
 	                { 
 	                	"data": 'triggerStatus',
@@ -285,6 +291,9 @@ $(function() {
         errorClass : 'help-block',
         focusInvalid : true,  
         rules : {
+			jobName : {
+				required : true
+			},
 			jobDesc : {
 				required : true,
 				maxlength: 50
@@ -302,7 +311,10 @@ $(function() {
                 digits:true
             }
         }, 
-        messages : {  
+        messages : {
+			jobName : {
+				required : I18n.system_please_input + I18n.jobinfo_field_jobname
+			},
             jobDesc : {
             	required : I18n.system_please_input + I18n.jobinfo_field_jobdesc
             },
@@ -419,6 +431,7 @@ $(function() {
 
 		// base data
 		$("#updateModal .form input[name='id']").val( row.id );
+		$("#updateModal .form input[name='jobName']").val( row.jobName );
 		$('#updateModal .form select[name=jobGroup] option[value='+ row.jobGroup +']').prop('selected', true);
 		$("#updateModal .form input[name='jobDesc']").val( row.jobDesc );
 		$("#updateModal .form input[name='jobCron']").val( row.jobCron );
@@ -444,6 +457,9 @@ $(function() {
         focusInvalid : true,
 
 		rules : {
+			jobName : {
+				required : true
+			},
 			jobDesc : {
 				required : true,
 				maxlength: 50
@@ -462,6 +478,9 @@ $(function() {
             }
 		},
 		messages : {
+			jobName : {
+				required : I18n.system_please_input + I18n.jobinfo_field_jobname
+			},
 			jobDesc : {
                 required : I18n.system_please_input + I18n.jobinfo_field_jobdesc
 			},

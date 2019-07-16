@@ -9,6 +9,7 @@ use `xxl_job`;
 CREATE TABLE `xxl_job_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `job_group` int(11) NOT NULL COMMENT '执行器主键ID',
+  `job_name` varchar(50) NOT NULL COMMENT '任务名称',
   `job_cron` varchar(128) NOT NULL COMMENT '任务执行CRON',
   `job_desc` varchar(255) NOT NULL,
   `add_time` datetime DEFAULT NULL,
@@ -31,6 +32,9 @@ CREATE TABLE `xxl_job_info` (
   `trigger_next_time` bigint(13) NOT NULL DEFAULT '0' COMMENT '下次调度时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `xxl_job_info`
+  ADD UNIQUE INDEX `AK_JOB_NAME` (`job_name`);
 
 CREATE TABLE `xxl_job_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,

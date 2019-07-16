@@ -25,7 +25,7 @@
 		
 		<!-- Main content -->
 	    <section class="content">
-	    	<div class="row">
+	    	<div class="row" style="margin-bottom: 10px;">
 	    		<div class="col-xs-2">
  					<div class="input-group">
 	                	<span class="input-group-addon">${I18n.jobinfo_field_jobgroup}</span>
@@ -39,7 +39,13 @@
 	                  	</select>
 	              	</div>
 	            </div>
-	            <div class="col-xs-2">
+                <div class="col-xs-2">
+                    <div class="input-group">
+                        <span class="input-group-addon">${I18n.jobinfo_field_jobname}</span>
+                        <input type="text" class="form-control" id="jobName" value="<#if jobInfo?exists>${jobInfo.jobName}</#if>" autocomplete="on" >
+                    </div>
+                </div>
+	            <div class="col-xs-2" style="display: none">
 	              	<div class="input-group">
 	                	<span class="input-group-addon">${I18n.jobinfo_job}</span>
                         <select class="form-control" id="jobId" paramVal="<#if jobInfo?exists>${jobInfo.id}</#if>" >
@@ -77,7 +83,9 @@
                     <button class="btn btn-block btn-nomal" id="clearLog">${I18n.joblog_clean}</button>
 	            </div>
           	</div>
-			
+			<div class="row">
+
+            </div>
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box">
@@ -87,6 +95,7 @@
 				                <thead>
 					            	<tr>
                                         <th name="jobId" >${I18n.jobinfo_field_id}</th>
+                                        <th name="jobName" >${I18n.jobinfo_field_jobname}</th>
                                         <th name="jobGroup" >jobGroup</th>
 										<#--<th name="executorAddress" >执行器地址</th>
 										<th name="glueType" >运行模式</th>

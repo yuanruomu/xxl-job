@@ -81,6 +81,7 @@ $(function() {
 	        	var obj = {};
 	        	obj.jobGroup = $('#jobGroup').val();
 	        	obj.jobId = $('#jobId').val();
+				obj.jobName = $('#jobName').val();
                 obj.logStatus = $('#logStatus').val();
 				obj.filterTime = $('#filterTime').val();
 	        	obj.start = d.start;
@@ -111,17 +112,23 @@ $(function() {
 							return '<a class="logTips" href="javascript:;" >'+ row.jobId +'<span style="display:none;">'+ temp +'</span></a>';
 						}
 					},
-					{ "data": 'jobGroup', "visible" : false},
+					{
+						"data": 'jobName',
+						"visible" : true,
+						"width":'10%'
+					},
+					{ "data": 'jobGroup', "visible" : false,
+						"width":'10%'},
 					{
 						"data": 'triggerTime',
-                        "width":'16%',
+                        "width":'15%',
 						"render": function ( data, type, row ) {
 							return data?moment(new Date(data)).format("YYYY-MM-DD HH:mm:ss"):"";
 						}
 					},
 					{
 						"data": 'triggerCode',
-                        "width":'12%',
+                        "width":'10%',
 						"render": function ( data, type, row ) {
 							var html = data;
 							if (data == 200) {
@@ -136,21 +143,21 @@ $(function() {
 					},
 					{
 						"data": 'triggerMsg',
-                        "width":'12%',
+                        "width":'10%',
 						"render": function ( data, type, row ) {
 							return data?'<a class="logTips" href="javascript:;" >'+ I18n.system_show +'<span style="display:none;">'+ data +'</span></a>':I18n.system_empty;
 						}
 					},
 	                { 
 	                	"data": 'handleTime',
-                        "width":'16%',
+                        "width":'15%',
 	                	"render": function ( data, type, row ) {
 	                		return data?moment(new Date(data)).format("YYYY-MM-DD HH:mm:ss"):"";
 	                	}
 	                },
 	                {
 						"data": 'handleCode',
-                        "width":'12%',
+                        "width":'5%',
 						"render": function ( data, type, row ) {
                             var html = data;
                             if (data == 200) {
@@ -167,7 +174,7 @@ $(function() {
 	                },
 	                { 
 	                	"data": 'handleMsg',
-                        "width":'12%',
+                        "width":'5%',
 	                	"render": function ( data, type, row ) {
 	                		return data?'<a class="logTips" href="javascript:;" >'+ I18n.system_show +'<span style="display:none;">'+ data +'</span></a>':I18n.system_empty;
 	                	}
